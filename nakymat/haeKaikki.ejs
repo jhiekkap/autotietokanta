@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Kaikki henkilöt</title>
+    <link rel="stylesheet" href="/tyylit/tyylit.css" type="text/css">
+</head>
+
+<body>
+    <h2>Kaikki henkilöt</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>HenkiloID</th>
+                <th>Nimi</th>
+                <th>Osasto</th>
+                <th>Palkka</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% henkilot.forEach(henkilo => { %>
+            <tr>
+                <td>
+                    <%= henkilo.henkiloId %>
+                </td>
+                <td>
+                    <%= henkilo.etunimi %> <%= henkilo.sukunimi %>
+                </td>
+                <td>
+                    <%= henkilo.osasto %>
+                </td>
+                <td>
+                    <%= henkilo.palkka %>
+                </td>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    <a href="/"><button>Valikkoon</button></a>
+</body>
+
+</html>
+ 
