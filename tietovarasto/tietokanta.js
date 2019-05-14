@@ -5,7 +5,7 @@ module.exports = class Tietokanta {
         this.optiot = optiot;
     }
     suoritaKysely(sql, parametrit) {
-        return new Promise(async(resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             let yhteys;
             try {
                 yhteys = await mariadb.createConnection(this.optiot);

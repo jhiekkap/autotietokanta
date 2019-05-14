@@ -3,35 +3,39 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Kaikki henkilöt</title>
+    <title>Kaikki autot</title>
     <link rel="stylesheet" href="/tyylit/tyylit.css" type="text/css">
 </head>
 
 <body>
-    <h2>Kaikki henkilöt</h2>
+    <h2>Kaikki autot</h2>
     <table>
         <thead>
             <tr>
-                <th>HenkiloID</th>
+                <th>Valmistusnumero</th>
                 <th>Nimi</th>
-                <th>Osasto</th>
-                <th>Palkka</th>
+                <th>Rekisterinumero</th>
+                <th>Arvostelu</th>
+                <th>Varastolukumäärä</th>
             </tr>
         </thead>
         <tbody>
-            <% henkilot.forEach(henkilo => { %>
+            <% autot.forEach(auto => { %>
             <tr>
                 <td>
-                    <%= henkilo.henkiloId %>
+                    <%= auto.valmistusnro %>
                 </td>
                 <td>
-                    <%= henkilo.etunimi %> <%= henkilo.sukunimi %>
+                    <%= auto.nimi %> 
                 </td>
                 <td>
-                    <%= henkilo.osasto %>
+                     <%= auto.rekisteriNro %>
                 </td>
                 <td>
-                    <%= henkilo.palkka %>
+                    <%= auto.arvostelu %>
+                </td>
+                <td>
+                    <%= auto.varastoLkm %>
                 </td>
             </tr>
             <% }); %>
