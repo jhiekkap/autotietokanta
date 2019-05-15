@@ -2,6 +2,7 @@
 
 luo tietokanta (tietovarasto/luontilauseet.sql)
 
-node index
+npm install
+npm start
 
 localhost:3000
