@@ -6,26 +6,31 @@ const app = express();
 const portti = process.env.PORT || 3000;
 const host = process.env.HOST || 'localhost';
 const palvelin = http.createServer(app);
-const Henkilokanta = require('./tietovarasto/henkilokanta');
-const henkilot = new Henkilokanta();
+const Autokanta = require('./tietovarasto/autokanta');
+const autot = new Autokanta();
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'nakymat'));
 app.use(express.static(path.join(__dirname, 'resurssit')));
-app.use(express.urlencoded({ extended: true})); //false????
+app.use(express.urlencoded({ extended: false})); //true????
+
 app.get('/', (req, res) => res.render('valikko'));
+
 app.get('/kaikki', async(req, res) => {
     try {
-        const tulos = await henkilot.haeKaikki();
+        const tulos = await autot.haeKaikki();
         //console.log(tulos);
-        res.render('haeKaikki', { henkilot: tulos.kyselynTulos });
+        res.render('haeKaikki', { autot: tulos.kyselynTulos });
     } catch (virhe) {
+        console.log(virhe)
         lahetaKyselyvirhe(res, virhe.message);
     }
 });
+
 app.get('/hae', (req, res) => {
-    res.render('haeHenkilo', {
-        paaotsikko: 'Henkilön haku',
-        otsikko: 'Syötä henkiloId',
+    res.render('haeAuto', {
+        paaotsikko: 'Auton haku',
+        otsikko: 'Syötä valmistusnumero',
         toiminto: '/hae'
     });
 });
@@ -33,31 +38,31 @@ app.get('/hae', (req, res) => {
 app.post('/hae', async(req, res) => {
     if (!req.body) lahetaVirhe(res, 'ei löydy');
     try {
-        const tulos = await henkilot.hae(req.body.henkiloId);
+        const tulos = await autot.hae(req.body.valmistusnro);
         if (tulos.kyselynTulos.length > 0) {
             res.render('hakutulos', {tiedot: tulos.kyselynTulos[0]});
         } else {
-            lahetaVirhe(res, 'henkilöä ei löytynyt');
+            lahetaVirhe(res, 'autoa ei löytynyt');
         }
     } catch (virhe) {
         lahetaKyselyvirhe(res, virhe);
     }
 });
 app.get('/poista', (req, res) => {
-    res.render('haeHenkilo', {
-        paaotsikko: 'Henkilön haku',
-        otsikko: 'Syötä henkiloId',
+    res.render('haeAuto', {
+        paaotsikko: 'Auton haku',
+        otsikko: 'Syötä valmistusnumero',
         toiminto: '/poista'
     });
 });
 app.post('/poista', async(req, res) => {
     if (!req.body) lahetaVirhe(res, 'ei löydy');
     try {
-        const tulos = await henkilot.poista(req.body.henkiloId);
+        const tulos = await autot.poista(req.body.valmistusnro);
         if (tulos.kyselynTulos.muutetutRivitLkm == 1) {
-            lahetaTila(res, 'henkilo poistettu');
+            lahetaTila(res, 'auto poistettu');
         } else {
-            lahetaVirhe(res, 'henkilöä ei löytynyt');
+            lahetaVirhe(res, 'autoa ei löytynyt');
         }
     } catch (virhe) {
         lahetaKyselyvirhe(res, virhe);
@@ -66,34 +71,34 @@ app.post('/poista', async(req, res) => {
 
 app.get('/lisaa', (req, res) => {
     res.render('lomake', {
-        paaotsikko: 'Henkilön lisäys',
+        paaotsikko: 'Auton lisäys',
         otsikko: 'Syötä tiedot',
         nappula: 'Tallenna',
         toiminto: '/lisaa',
-        henkiloId: { arvo: '', vainluku: '' },
-        etunimi: { arvo: '', vainluku: '' },
-        sukunimi: { arvo: '', vainluku: '' },
-        osasto: { arvo: '', vainluku: '' },
-        palkka: { arvo: '', vainluku: '' }
+        valmistusnro: { arvo: '', vainluku: '' },
+        nimi: { arvo: '', vainluku: '' },
+        rekisteriNro: { arvo: '', vainluku: '' },
+        arvostelu: { arvo: '', vainluku: '' },
+        varastoLkm: { arvo: '', vainluku: '' }
     });
 });
 app.post('/lisaa', async(req, res) => {
     if (!req.body) lahetaVirhe(res, 'ei löydy');
     try {
-        const tulos = await henkilot.lisaa(req.body);
+        const tulos = await autot.lisaa(req.body);
         if (tulos.kyselynTulos.muutetutRivitLkm == 1) {
-            lahetaTila(res, 'Henkilö lisätty');
+            lahetaTila(res, 'Auto lisätty');
         } else {
-            lahetaVirhe(res, 'henkilöä ei lisätty');
+            lahetaVirhe(res, 'autoa ei lisätty');
         }
     } catch (virhe) {
         lahetaKyselyvirhe(res, virhe);
     }
 });
 app.get('/paivita', (req, res) =>{
-    res.render('haeHenkilo', {
-        paaotsikko: 'Henkilön paivitys',
-        otsikko: 'Syötä henkiloId',
+    res.render('haeAuto', {
+        paaotsikko: 'Auton paivitys',
+        otsikko: 'Syötä valmistusnumero',
         toiminto: '/paivita'
     });
 });
@@ -102,26 +107,26 @@ app.post('/paivita', async (req, res) => {
 
     if (!req.body) lahetaVirhe(res, 'ei löydy');
     try {
-        const tulos = await henkilot.hae(req.body.henkiloId);
+        const tulos = await autot.hae(req.body.valmistusnro);
         
         if (tulos.kyselynTulos.length > 0) {
             //res.render('hakutulos', {tiedot: tulos.kyselynTulos[0]});
             console.log(tulos);
             const arvot = tulos.kyselynTulos[0];
             res.render('lomake', {
-                paaotsikko: 'Henkilön lisäys',
+                paaotsikko: 'Auton lisäys',
                 otsikko: 'Päivitä tiedot',
                 nappula: 'Päivitä',
                 toiminto: '/muuta',
-                henkiloId: { arvo: arvot.henkiloId, vainluku: '' },
-                etunimi: { arvo: arvot.etunimi, vainluku: '' },
-                sukunimi: { arvo: arvot.sukunimi, vainluku: '' },
-                osasto: { arvo: arvot.osasto, vainluku: '' },
-                palkka: { arvo: arvot.palkka, vainluku: '' }
+                valmistusnro: { arvo: arvot.valmistusnro, vainluku: '' },
+                nimi: { arvo: arvot.nimi, vainluku: '' },
+                rekisteriNro: { arvo: arvot. rekisteriNro, vainluku: '' },
+                arvostelu: { arvo: arvot.arvostelu, vainluku: '' },
+                varastoLkm: { arvo: arvot.varastoLkm, vainluku: '' }
             });
 
         } else {
-            lahetaVirhe(res, 'henkilöä ei löytynyt');
+            lahetaVirhe(res, 'autoa ei löytynyt');
         }
     } catch (virhe) {
         lahetaKyselyvirhe(res, virhe);
@@ -130,11 +135,11 @@ app.post('/paivita', async (req, res) => {
 app.post('/muuta', async(req, res) => {
     if (!req.body) lahetaVirhe(res, 'ei löydy');
     try {
-        const tulos = await henkilot.paivita(req.body);
+        const tulos = await autot.paivita(req.body);
         if (tulos.kyselynTulos.muutetutRivitLkm == 1) {
-            lahetaTila(res, 'Henkilö päivitetty');
+            lahetaTila(res, 'Auto päivitetty');
         } else {
-            lahetaVirhe(res, 'henkilöä ei päivitetty');
+            lahetaVirhe(res, 'autoa ei päivitetty');
         }
     } catch (virhe) {
         lahetaKyselyvirhe(res, virhe);

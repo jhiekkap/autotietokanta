@@ -9,29 +9,31 @@
 
 <body>
     <h1><%= otsikko %></h1>
-    <form id="henkilolomake" action="<%= toiminto %>" method="POST">
+    <form id="autolomake" action="<%= toiminto %>" method="POST">
         <p>
-            <label for="henkiloNumero">Henkilonumero:</label>
-            <input type="text" id="henkiloId" name="henkiloId" size="5" value="<%= henkiloId.arvo %>"
-                <%= henkiloId.vainluku %>>
+            <label for="valmistusnro">Valmistusnumero:</label>
+            <input type="text" id="valmistusnro" name="valmistusnro" size="5" value="<%= valmistusnro.arvo %>"
+                <%= valmistusnro.vainluku %>>
         </p>
         <p>
-            <label for="etunimi">Etunimi:</label>
-            <input type="text" id="etunimi" name="etunimi" size="15" value="<%= etunimi.arvo %>"
-                <%= etunimi.vainluku %>>
+            <label for="nimi">Nimi:</label>
+            <input type="text" id="nimi" name="nimi" size="15" value="<%= nimi.arvo %>"
+                <%= nimi.vainluku %>>
         </p>
         <p>
-            <label for="sukunimi">Sukunimi:</label>
-            <input type="text" id="sukunimi" name="sukunimi" size="25" value="<%= sukunimi.arvo %>"
-                <%= sukunimi.vainluku %>>
+            <label for="rekisteriNro">Rekisterinumero:</label>
+            <input type="text" id="rekisteriNro" name="rekisteriNro" size="25" value="<%= rekisteriNro.arvo %>"
+                <%= rekisteriNro.vainluku %>>
         </p>
         <p>
-            <label for="osasto">Osasto:</label>
-            <input type="text" id="osasto" name="osasto" size="10" value="<%= osasto.arvo %>" <%= osasto.vainluku %>>
+            <label for="arvostelu">Arvostelu:</label>
+            <input type="text" id="arvostelu" name="arvostelu" size="10" value="<%= arvostelu.arvo %>"
+             <%= arvostelu.vainluku %>>
         </p>
         <p>
-            <label for="palkka">Palkka:</label>
-            <input type="text" id="palkka" name="palkka" size="30" value="<%= palkka.arvo %>" <%= palkka.vainluku %>>
+            <label for="varastoLkm">Varastolukumäärä:</label>
+            <input type="text" id="varastoLkm" name="varastoLkm" size="30" value="<%= varastoLkm.arvo %>" 
+            <%= varastoLkm.vainluku %>>
         </p>
         <button type="submit"><%=nappula%></button><br>
         
