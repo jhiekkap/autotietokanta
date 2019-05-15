@@ -1,6 +1,6 @@
 # autotietokanta
 
-luo tietokanta (luontilauseet.sql)
+luo tietokanta (tietovarasto/luontilauseet.sql)
 
 node index
 
