@@ -23,11 +23,11 @@ const paivitaAutoSql = 'update autot set nimi=?, rekisteriNro=?, ' +
 
 module.exports = class Autokanta {
     constructor(optiot = {
-            host: 'localhost',
+            host: 'remotemysql.com',
             port: 3306,
-            user: 'lars',
-            password: 'kCp1cjmJ',
-            database: 'autotietokanta'
+            user: 'G3ASSd95JP',
+            password: 'VCVohcxWkg',
+            database: 'G3ASSd95JP'
         }) {
             this.autot = new Tietokanta(optiot);
         }

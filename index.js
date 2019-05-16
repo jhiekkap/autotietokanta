@@ -157,7 +157,8 @@ app.post('/muuta', async (req, res) => {
             lahetaVirhe(res, 'autoa ei päivitetty');
         }
     } catch (virhe) {
-        lahetaKyselyvirhe(res, virhe);
+        console.log('VIRHEE--------------------!!!!!!!!!',virhe)
+        //lahetaKyselyvirhe(res, virhe);
     }
 });
  
@@ -168,7 +169,7 @@ palvelin.listen(portti, host, () =>
     /*eslint-enable no-console */
 );
 //apufunktiot
-/* function lahetaTila(res, viesti) {
+function lahetaTila(res, viesti) {
     res.render('tilasivu', { paaotsikko: 'Tila', otsikko: 'Tulos', viesti });
 }
 
@@ -183,4 +184,4 @@ function lahetaVirhe(res, virhe) {
 function lahetaKyselyvirhe(res, virhe) {
     //tässä virheolio olisi käsitellä.
     lahetaVirhe(res, 'Ohjelmointivirhe.');
-} */
+}

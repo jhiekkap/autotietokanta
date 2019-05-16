@@ -14,4 +14,15 @@ INSERT INTO autot VALUES(1,'Mersu','ABC-123','*****',20);
 INSERT INTO autot VALUES(2,'Mosse','QWE-321','**',7000);
 
 
+
+remotemysql.com
+port:3306,
+G3ASSd95JP
+VCVohcxWkg
+
  
+ host: 'localhost',
+            port: 3306,
+            user: 'lars',
+            password: 'kCp1cjmJ',
+            database: 'autotietokanta'
