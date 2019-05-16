@@ -25,7 +25,8 @@ module.exports = autot => {
     }).post(async (req, res) => {
         if (!req.body) lahetaVirhe(res, 'ei löydy');
         try {
-            const tulos = await autot.hae(req.body.valmistusnro); if (tulos.kyselynTulos.length > 0) {
+            const tulos = await autot.hae(req.body.valmistusnro); 
+            if (tulos.kyselynTulos.length > 0) {
                 res.render('hakutulos', {
                     paaotsikko: 'Tulos',
                     otsikko: 'Haetut tiedot',

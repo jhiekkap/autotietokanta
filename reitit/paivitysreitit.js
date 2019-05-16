@@ -1,8 +1,9 @@
-'use strict'; const reitit = require('express').Router();
+'use strict'; 
+const reitit = require('express').Router();
 
 const { lahetaTila } = require('./viestikeskus.js');
 
-module.exports = henkilot => {
+module.exports = autot => {
 
     reitit.route('/paivita').get((req, res) => {
         res.render('haeAuto', {
@@ -35,7 +36,7 @@ module.exports = henkilot => {
                 lahetaVirhe(res, 'autoa ei löytynyt');
             }
         } catch (virhe) {
-            console.log('ERROR!!!', error);
+            console.log('ERROR!!!', virhe);
             lahetaKyselyvirhe(res, virhe);
         }
     });

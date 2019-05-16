@@ -21,8 +21,8 @@ G3ASSd95JP
 VCVohcxWkg
 
  
- host: 'localhost',
-            port: 3306,
-            user: 'lars',
-            password: 'kCp1cjmJ',
-            database: 'autotietokanta'
+host: 'localhost',
+port: 3306,
+user: 'lars',
+password: 'kCp1cjmJ',
+database: 'autotietokanta'
