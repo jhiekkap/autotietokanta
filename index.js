@@ -15,7 +15,7 @@ const autot = new Autokanta();
 const hakureitit = require('./reitit/hakureitit.js')(autot);
 const lisaysreitit = require('./reitit/lisaysreitit.js')(autot);
 const poistoreitit = require('./reitit/poistoreitit.js')(autot);
-const paivitysreitit = require('./reitit/paivitysreitit.js')(autot);
+//const paivitysreitit = require('./reitit/paivitysreitit.js')(autot);
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'nakymat'));
@@ -26,7 +26,7 @@ app.use(express.urlencoded({ extended: false })); //true????
 app.use('/', hakureitit);
 app.use('/', lisaysreitit);
 app.use('/', poistoreitit);
-app.use('/', paivitysreitit);  
+//app.use('/', paivitysreitit);  
 
 
 app.get('/', (req, res) => res.render('valikko'));
@@ -110,15 +110,15 @@ app.post('/poista', async (req, res) => {
         lahetaKyselyvirhe(res, virhe);
     }
 }); */
-/* app.get('/paivita', (req, res) => {
+app.get('/paivita', (req, res) => {
     res.render('haeAuto', {
         paaotsikko: 'Auton paivitys',
         otsikko: 'Syötä valmistusnumero',
         toiminto: '/paivita'
     });
-}); */
+}); 
 
-/* app.post('/paivita', async (req, res) => {
+app.post('/paivita', async (req, res) => {
 
     if (!req.body) lahetaVirhe(res, 'ei löydy');
     try {
@@ -146,8 +146,8 @@ app.post('/poista', async (req, res) => {
     } catch (virhe) {
         lahetaKyselyvirhe(res, virhe);
     }
-}); */
-/* app.post('/muuta', async (req, res) => {
+}); 
+app.post('/muuta', async (req, res) => {
     if (!req.body) lahetaVirhe(res, 'ei löydy');
     try {
         const tulos = await autot.paivita(req.body);
@@ -160,7 +160,7 @@ app.post('/poista', async (req, res) => {
         lahetaKyselyvirhe(res, virhe);
     }
 });
- */
+ 
 
 palvelin.listen(portti, host, () =>
     /*eslint-disable no-console */
