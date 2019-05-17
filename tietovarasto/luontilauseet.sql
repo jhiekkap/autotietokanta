@@ -13,9 +13,11 @@ GRANT ALL PRIVILEGES ON autotietokanta.* TO 'lars@localhost';
 INSERT INTO autot VALUES(1,'Mersu','ABC-123','*****',20);
 INSERT INTO autot VALUES(2,'Mosse','QWE-321','**',7000);
 
+-- cd tietovarasto
+--mysql.server start
+-- mysql -u root -p<luontilauseet.sql
 
-
-remotemysql.com
+/* remotemysql.com
 port:3306,
 G3ASSd95JP
 VCVohcxWkg
@@ -25,4 +27,4 @@ host: 'localhost',
 port: 3306,
 user: 'lars',
 password: 'kCp1cjmJ',
-database: 'autotietokanta'
+database: 'autotietokanta' */
