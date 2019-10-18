@@ -1,4 +1,4 @@
-# autotietokanta
+# autotietokanta - javascript, mariaDB
 
 luo tietokanta (tietovarasto/luontilauseet.sql)
 
